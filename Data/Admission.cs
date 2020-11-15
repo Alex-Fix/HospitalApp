@@ -18,11 +18,7 @@ namespace Data
         public Ward Ward { get; set; }
         public int DoctorId { get; set; }
         public Doctor Doctor { get; set; }
-        public List<Medicine> Medicines { get; set; }
+        public ICollection<Medicine> Medicines { get; set; }
 
-        public Admission()
-        {
-            Medicines = new List<Medicine>();
-        }
     }
 }

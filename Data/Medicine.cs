@@ -15,11 +15,7 @@ namespace Data
         public string Indication { get; set; }
         public int CountryId { get; set; }
         public Country Country { get; set; }
-        public List<Admission> Admissions { get; set; }
+        public ICollection<Admission> Admissions { get; set; }
         
-        public Medicine()
-        {
-            Admissions = new List<Admission>();
-        }
     }
 }

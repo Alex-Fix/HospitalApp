@@ -13,12 +13,8 @@ namespace Data
         public int WardNumber { get; set; }
         public Comfort Comfot { get; set; }
         public int NumberOfPaces { get; set; }
-        public List<Admission> Admissions { get; set; }
+        public ICollection<Admission> Admissions { get; set; }
 
-        public Ward()
-        {
-            Admissions = new List<Admission>();
-        }
     }
     public enum Comfort
     {

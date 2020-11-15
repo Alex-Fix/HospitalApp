@@ -5,18 +5,19 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F1486114-2E54-498F-B345-27A527AE8CD0}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Data</RootNamespace>
-    <AssemblyName>Data</AssemblyName>
+    <ProjectGuid>{1B9342BE-1EAD-4159-AA69-489B80B4250E}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Server</RootNamespace>
+    <AssemblyName>Server</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -26,6 +27,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -51,39 +53,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admission.cs" />
-    <Compile Include="ApplicationContext.cs" />
-    <Compile Include="Country.cs" />
-    <Compile Include="Doctor.cs" />
-    <Compile Include="Medicine.cs" />
-    <Compile Include="Migrations\202011121838590_Create_Database.cs" />
-    <Compile Include="Migrations\202011121838590_Create_Database.designer.cs">
-      <DependentUpon>202011121838590_Create_Database.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011151107386_Test_Insert_RolesAndUsers.cs" />
-    <Compile Include="Migrations\202011151107386_Test_Insert_RolesAndUsers.designer.cs">
-      <DependentUpon>202011151107386_Test_Insert_RolesAndUsers.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Patient.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Role.cs" />
-    <Compile Include="Role_User_Mapping.cs" />
-    <Compile Include="SocketNode.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="Ward.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202011121838590_Create_Database.resx">
-      <DependentUpon>202011121838590_Create_Database.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011151107386_Test_Insert_RolesAndUsers.resx">
-      <DependentUpon>202011151107386_Test_Insert_RolesAndUsers.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{F1486114-2E54-498F-B345-27A527AE8CD0}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{71d9edef-e53d-4102-abb8-48ef8b697748}</Project>
+      <Name>Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

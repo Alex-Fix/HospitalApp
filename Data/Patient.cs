@@ -15,11 +15,7 @@ namespace Data
         public string Address { get; set; }
         public string InsurancePolicy { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public List<Admission> Admissions { get; set; }
+        public ICollection<Admission> Admissions { get; set; 
 
-        public Patient()
-        {
-            Admissions = new List<Admission>();
-        }
     }
 }

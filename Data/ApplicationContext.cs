@@ -19,7 +19,7 @@ namespace Data
         public DbSet<User> Users { get; set; }
         public DbSet<Ward> Wards { get; set; }
 
-        public ApplicationContext() : base("HospitalDB")
+        public ApplicationContext() : base(@"server=ALEXFIXPC;database=HospitalDB;trusted_connection=true;")
         {}
     }
 }

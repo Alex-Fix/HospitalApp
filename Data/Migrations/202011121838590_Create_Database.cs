@@ -20,9 +20,9 @@
                         DoctorId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Doctors", t => t.DoctorId, cascadeDelete: true)
-                .ForeignKey("dbo.Patients", t => t.PatientId, cascadeDelete: true)
-                .ForeignKey("dbo.Wards", t => t.WardId, cascadeDelete: true)
+                .ForeignKey("dbo.Doctors", t => t.DoctorId, cascadeDelete: false)
+                .ForeignKey("dbo.Patients", t => t.PatientId, cascadeDelete: false)
+                .ForeignKey("dbo.Wards", t => t.WardId, cascadeDelete: false)
                 .Index(t => t.PatientId)
                 .Index(t => t.WardId)
                 .Index(t => t.DoctorId);
@@ -53,7 +53,7 @@
                         CountryId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Countries", t => t.CountryId, cascadeDelete: true)
+                .ForeignKey("dbo.Countries", t => t.CountryId, cascadeDelete: false)
                 .Index(t => t.CountryId);
             
             CreateTable(
@@ -99,8 +99,8 @@
                         RoleId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Roles", t => t.RoleId, cascadeDelete: true)
-                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.Roles", t => t.RoleId, cascadeDelete: false)
+                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: false)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
             
@@ -131,8 +131,8 @@
                         Admission_Id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.Medicine_Id, t.Admission_Id })
-                .ForeignKey("dbo.Medicines", t => t.Medicine_Id, cascadeDelete: true)
-                .ForeignKey("dbo.Admissions", t => t.Admission_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Medicines", t => t.Medicine_Id, cascadeDelete: false)
+                .ForeignKey("dbo.Admissions", t => t.Admission_Id, cascadeDelete: false)
                 .Index(t => t.Medicine_Id)
                 .Index(t => t.Admission_Id);
             
