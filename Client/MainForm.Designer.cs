@@ -54,7 +54,7 @@ namespace Client
             this.PortLabel.Name = "PortLabel";
             this.PortLabel.Size = new System.Drawing.Size(50, 17);
             this.PortLabel.TabIndex = 0;
-            this.PortLabel.Text = "Port: 0";
+            this.PortLabel.Text = "Port: ";
             // 
             // IPLabel
             // 
@@ -92,6 +92,7 @@ namespace Client
             this.AddDoctorBtn.TabIndex = 4;
             this.AddDoctorBtn.Text = "Додати Лікаря";
             this.AddDoctorBtn.UseVisualStyleBackColor = true;
+            this.AddDoctorBtn.Click += new System.EventHandler(this.AddDoctorBtn_Click);
             // 
             // AddUserBtn
             // 

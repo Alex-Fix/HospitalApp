@@ -10,6 +10,11 @@ namespace Data
     {
         public int Id { get; set; }
         public string RoleName { get; set; }
-        public ICollection<Role_User_Mapping> Role_User_Mappings { get; set; }
+        public virtual ICollection<Role_User_Mapping> Role_User_Mappings { get; set; }
+
+        public Role()
+        {
+            Role_User_Mappings = new List<Role_User_Mapping>();
+        }
     }
 }

@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Test_Insert_RolesAndUsers : DbMigration
+    public partial class InsertTestData : DbMigration
     {
         public override void Up()
         {
@@ -13,6 +13,7 @@ GO
 INSERT INTO Users (Login, Password) VALUES ('Alex','123'), ('Fix','123')
 GO
 INSERT INTO Role_User_Mapping (UserId, RoleId) VALUES (1, 1),(1, 2), (2,2)
+GO
 ");
         }
         

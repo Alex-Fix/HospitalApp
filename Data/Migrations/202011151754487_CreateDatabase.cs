@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Create_Database : DbMigration
+    public partial class CreateDatabase : DbMigration
     {
         public override void Up()
         {
@@ -12,17 +12,17 @@
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        PatientId = c.Int(nullable: false),
+                        PatientId = c.Int(),
                         DateOfReceipt = c.DateTime(nullable: false),
                         DischargeDate = c.DateTime(nullable: false),
                         Diagnosis = c.String(),
-                        WardId = c.Int(nullable: false),
-                        DoctorId = c.Int(nullable: false),
+                        WardId = c.Int(),
+                        DoctorId = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Doctors", t => t.DoctorId, cascadeDelete: false)
-                .ForeignKey("dbo.Patients", t => t.PatientId, cascadeDelete: false)
-                .ForeignKey("dbo.Wards", t => t.WardId, cascadeDelete: false)
+                .ForeignKey("dbo.Doctors", t => t.DoctorId)
+                .ForeignKey("dbo.Patients", t => t.PatientId)
+                .ForeignKey("dbo.Wards", t => t.WardId)
                 .Index(t => t.PatientId)
                 .Index(t => t.WardId)
                 .Index(t => t.DoctorId);
@@ -50,10 +50,10 @@
                         Name = c.String(),
                         Price = c.Decimal(nullable: false, precision: 18, scale: 2),
                         Indication = c.String(),
-                        CountryId = c.Int(nullable: false),
+                        CountryId = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Countries", t => t.CountryId, cascadeDelete: false)
+                .ForeignKey("dbo.Countries", t => t.CountryId)
                 .Index(t => t.CountryId);
             
             CreateTable(
@@ -95,12 +95,12 @@
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        UserId = c.Int(nullable: false),
-                        RoleId = c.Int(nullable: false),
+                        UserId = c.Int(),
+                        RoleId = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Roles", t => t.RoleId, cascadeDelete: false)
-                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: false)
+                .ForeignKey("dbo.Roles", t => t.RoleId)
+                .ForeignKey("dbo.Users", t => t.UserId)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
             
@@ -127,12 +127,12 @@
                 "dbo.MedicineAdmissions",
                 c => new
                     {
-                        Medicine_Id = c.Int(nullable: false),
+                        Medicine_Id = c.Int(nullable: true),
                         Admission_Id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.Medicine_Id, t.Admission_Id })
-                .ForeignKey("dbo.Medicines", t => t.Medicine_Id, cascadeDelete: false)
-                .ForeignKey("dbo.Admissions", t => t.Admission_Id, cascadeDelete: false)
+                .ForeignKey("dbo.Medicines", t => t.Medicine_Id)
+                .ForeignKey("dbo.Admissions", t => t.Admission_Id)
                 .Index(t => t.Medicine_Id)
                 .Index(t => t.Admission_Id);
             

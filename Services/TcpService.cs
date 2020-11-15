@@ -99,6 +99,7 @@ namespace Services
                     foreach(var el in user.Role_User_Mappings)
                     {
                         el.User = null;
+                        var mapings = el.Role.Role_User_Mappings;
                         el.Role.Role_User_Mappings = null;
                     }
                 }

@@ -62,7 +62,7 @@ namespace Services
 
         public User GetUser(string login, string password)
         {
-             return _dbContext.Users.Where(el => el.Login.Equals(login) && el.Password.Equals(password)).Include(el => el.Role_User_Mappings.Select(s => s.Role)).FirstOrDefault();
+            return _dbContext.Users.Where(el => el.Login.Equals(login) && el.Password.Equals(password)).FirstOrDefault();//.Include(el => el.Role_User_Mappings.Select(s => s.Role)).FirstOrDefault();
         }
 
         public void InsertPatient(Patient patient)

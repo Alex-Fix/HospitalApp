@@ -13,9 +13,13 @@ namespace Data
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string Indication { get; set; }
-        public int CountryId { get; set; }
-        public Country Country { get; set; }
-        public ICollection<Admission> Admissions { get; set; }
+        public int? CountryId { get; set; }
+        public virtual Country Country { get; set; }
+        public virtual ICollection<Admission> Admissions { get; set; }
         
+        public Medicine()
+        {
+            Admissions = new List<Admission>();
+        }
     }
 }

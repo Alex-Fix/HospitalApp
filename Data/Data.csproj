@@ -56,13 +56,13 @@
     <Compile Include="Country.cs" />
     <Compile Include="Doctor.cs" />
     <Compile Include="Medicine.cs" />
-    <Compile Include="Migrations\202011121838590_Create_Database.cs" />
-    <Compile Include="Migrations\202011121838590_Create_Database.designer.cs">
-      <DependentUpon>202011121838590_Create_Database.cs</DependentUpon>
+    <Compile Include="Migrations\202011151754487_CreateDatabase.cs" />
+    <Compile Include="Migrations\202011151754487_CreateDatabase.designer.cs">
+      <DependentUpon>202011151754487_CreateDatabase.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202011151107386_Test_Insert_RolesAndUsers.cs" />
-    <Compile Include="Migrations\202011151107386_Test_Insert_RolesAndUsers.designer.cs">
-      <DependentUpon>202011151107386_Test_Insert_RolesAndUsers.cs</DependentUpon>
+    <Compile Include="Migrations\202011151757177_InsertTestData.cs" />
+    <Compile Include="Migrations\202011151757177_InsertTestData.designer.cs">
+      <DependentUpon>202011151757177_InsertTestData.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Patient.cs" />
@@ -78,11 +78,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202011121838590_Create_Database.resx">
-      <DependentUpon>202011121838590_Create_Database.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202011151754487_CreateDatabase.resx">
+      <DependentUpon>202011151754487_CreateDatabase.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011151107386_Test_Insert_RolesAndUsers.resx">
-      <DependentUpon>202011151107386_Test_Insert_RolesAndUsers.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202011151757177_InsertTestData.resx">
+      <DependentUpon>202011151757177_InsertTestData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
