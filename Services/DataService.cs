@@ -62,7 +62,7 @@ namespace Services
 
         public User GetUser(string login, string password)
         {
-            return _dbContext.Users.Where(el => el.Login.Equals(login) && el.Password.Equals(password)).FirstOrDefault();//.Include(el => el.Role_User_Mappings.Select(s => s.Role)).FirstOrDefault();
+            return _dbContext.Users.Where(el => el.Login.Equals(login) && el.Password.Equals(password)).Include(el => el.Role_User_Mappings.Select(s => s.Role)).FirstOrDefault();//.Include(el => el.Role_User_Mappings.Select(s => s.Role)).FirstOrDefault();
         }
 
         public void InsertPatient(Patient patient)
@@ -73,6 +73,17 @@ namespace Services
                 throw new ArgumentException("The patient with an insurance policy exists in the database");
             }
             _dbContext.Patients.Add(patient);
+            _dbContext.SaveChanges();
+        }
+
+        public void InsertDoctor(Doctor doctor)
+        {
+            var doctorInDb = _dbContext.Doctors.FirstOrDefault(el => el.Phone.Equals(doctor.Phone));
+            if(doctorInDb != null)
+            {
+                throw new ArgumentException("The doctor with an telephone number exists in the database");
+            }
+            _dbContext.Doctors.Add(doctor);
             _dbContext.SaveChanges();
         }
     }

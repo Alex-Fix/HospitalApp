@@ -39,6 +39,9 @@ namespace Services
                 case TcpMethods.AddPatient:
                     response = AddPatient(socketNode);
                     break;
+                case TcpMethods.AddDoctor:
+                    response = AddDoctor(socketNode);
+                    break;
                 default:
                     break;
             }
@@ -119,11 +122,11 @@ namespace Services
             });
         }
 
-        private string AddPatient(SocketNode socketNote)
+        private string AddPatient(SocketNode socketNode)
         {
             try
             {
-                var requestPatient = JsonSerializer.Deserialize<Patient>(socketNote.Args);
+                var requestPatient = JsonSerializer.Deserialize<Patient>(socketNode.Args);
                 dataService.InsertPatient(requestPatient);
                 return "200";
             }
@@ -133,12 +136,40 @@ namespace Services
             }
         }
 
+
+        public string SerializeAddDoctorRequest(Doctor doctor)
+        {
+            return JsonSerializer.Serialize<SocketNode>(new SocketNode
+            {
+                Method = "AddDoctor",
+                User = "",
+                Args = JsonSerializer.Serialize<Doctor>(doctor)
+            });
+        }
+
+        private string AddDoctor(SocketNode socketNode)
+        {
+            try
+            {
+                var requestDoctor = JsonSerializer.Deserialize<Doctor>(socketNode.Args);
+                dataService.InsertDoctor(requestDoctor);
+                return "200";
+            }
+            catch (Exception ex)
+            {
+                return "500;" + ex.Message;
+            }
+        }
+
     }
+
+    
 
     public enum TcpMethods
     {
         NONE,
         Authorize,
-        AddPatient
+        AddPatient,
+        AddDoctor
     }
 }
