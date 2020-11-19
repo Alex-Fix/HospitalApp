@@ -34,6 +34,12 @@ namespace Client
 
         private void AddDoctorBtn_Click(object sender, EventArgs e)
         {
+            AddDoctorForm form = new AddDoctorForm();
+            form.ShowDialog();
+        }
+
+        private void AddUserBtn_Click(object sender, EventArgs e)
+        {
 
         }
     }

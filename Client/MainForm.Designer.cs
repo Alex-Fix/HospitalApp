@@ -52,7 +52,7 @@ namespace Client
             this.PortLabel.AutoSize = true;
             this.PortLabel.Location = new System.Drawing.Point(12, 31);
             this.PortLabel.Name = "PortLabel";
-            this.PortLabel.Size = new System.Drawing.Size(50, 17);
+            this.PortLabel.Size = new System.Drawing.Size(42, 17);
             this.PortLabel.TabIndex = 0;
             this.PortLabel.Text = "Port: ";
             // 
@@ -103,6 +103,7 @@ namespace Client
             this.AddUserBtn.TabIndex = 5;
             this.AddUserBtn.Text = "Додати користувача";
             this.AddUserBtn.UseVisualStyleBackColor = true;
+            this.AddUserBtn.Click += new System.EventHandler(this.AddUserBtn_Click);
             // 
             // ViewPatientsBtn
             // 
