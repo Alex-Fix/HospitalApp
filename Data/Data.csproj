@@ -92,6 +92,10 @@
     <Compile Include="Migrations\202011151757177_InsertTestData.designer.cs">
       <DependentUpon>202011151757177_InsertTestData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011192050530_Merge_Migrai.cs" />
+    <Compile Include="Migrations\202011192050530_Merge_Migrai.designer.cs">
+      <DependentUpon>202011192050530_Merge_Migrai.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Patient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,6 +115,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011151757177_InsertTestData.resx">
       <DependentUpon>202011151757177_InsertTestData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011192050530_Merge_Migrai.resx">
+      <DependentUpon>202011192050530_Merge_Migrai.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

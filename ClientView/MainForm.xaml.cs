@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,19 +11,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ClientView
 {
     /// <summary>
-    /// Interaction logic for AuthorizationUC.xaml
+    /// Interaction logic for MainForm.xaml
     /// </summary>
-    public partial class AuthorizationUC : UserControl
+    public partial class MainForm : Window
     {
-        public AuthorizationUC()
+        private readonly TcpService tcpService;
+
+        public MainForm()
         {
             InitializeComponent();
+
+            tcpService = new TcpService();
         }
     }
 }

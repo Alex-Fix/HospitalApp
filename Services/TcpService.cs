@@ -49,6 +49,20 @@ namespace Services
             return response; 
         }
 
+        public async Task<string> DecodeStreamAsync(NetworkStream stream)
+        {
+            byte[] data = new byte[64];
+            StringBuilder builder = new StringBuilder();
+            int bytes = 0;
+            do
+            {
+                bytes = await stream.ReadAsync(data, 0, data.Length);
+                builder.Append(Encoding.UTF8.GetString(data, 0, bytes));
+            }
+            while (stream.DataAvailable);
+            return builder.ToString();
+        }
+
         public string DecodeStream(NetworkStream stream)
         {
             byte[] data = new byte[64];
@@ -61,6 +75,11 @@ namespace Services
             }
             while (stream.DataAvailable);
             return builder.ToString();
+        }
+
+        public async Task<byte[]> CodeStreamAsync(string request)
+        {
+            return await Task.Run(() => CodeStream(request));
         }
 
         public byte[] CodeStream(string request)
@@ -80,6 +99,7 @@ namespace Services
                 })
             });
         }
+
         public User DeserializeAuthorizeResponse(string response)
         {
             return JsonSerializer.Deserialize<User>(response);
