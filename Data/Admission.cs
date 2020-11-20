@@ -10,19 +10,20 @@ namespace Data
     {
         public int Id { get; set; }
         public int? PatientId { get; set; }
-        public virtual Patient Patient { get; set; }
+        public Patient Patient { get; set; }
         public DateTime DateOfReceipt { get; set; }
         public DateTime DischargeDate { get; set; }
         public string Diagnosis { get; set; }
         public int? WardId { get; set; }
-        public virtual Ward Ward { get; set; }
+        public Ward Ward { get; set; }
         public int? DoctorId { get; set; }
-        public virtual Doctor Doctor { get; set; }
-        public virtual ICollection<Medicine> Medicines { get; set; }
+        public Doctor Doctor { get; set; }
+        public ICollection<Medicine> Medicines { get; set; }
 
         public Admission()
         {
             Medicines = new List<Medicine>();
         }
     }
+
 }

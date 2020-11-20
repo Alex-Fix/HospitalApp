@@ -33,6 +33,7 @@ namespace ClientView
         {
             try
             {
+                LoginBtn.IsEnabled = false;
                 int port = int.Parse(this.PortTextBox.Text);
                 if (port < 0)
                     throw new ArgumentException("'port' is incorrect");
@@ -60,15 +61,15 @@ namespace ClientView
                 SingletoneObj.User = user;
                 SingletoneObj.IP = address;
                 SingletoneObj.Port = port;
+                SingletoneObj.Windows.Add("AuthorizationForm", this);
                 MainForm form = new MainForm();
                 form.Left = (this.Width - form.Width) + this.Left;
                 form.Top = (this.Height - form.Height) + this.Top;
-                SingletoneObj.Windows.Add("AuthorizationForm", this);
                 form.Show();
-                this.Hide();
             }
             catch (Exception ex)
             {
+                LoginBtn.IsEnabled = true;
                 this.StatusLabel.Content = "Status: " + ex.Message;
                 if (SingletoneObj.Client != null)
                     SingletoneObj.Client.Close();

@@ -10,22 +10,19 @@
             CreateTable(
                 "dbo.Admissions",
                 c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        PatientId = c.Int(),
-                        DateOfReceipt = c.DateTime(nullable: false),
-                        DischargeDate = c.DateTime(nullable: false),
-                        Diagnosis = c.String(),
-                        WardId = c.Int(),
-                        DoctorId = c.Int(),
-                    })
+                {
+                    Id = c.Int(nullable: false, identity: true),
+                    PatientId = c.Int(nullable: true),
+                    DateOfReceipt = c.DateTime(nullable: false),
+                    DischargeDate = c.DateTime(nullable: false),
+                    Diagnosis = c.String(),
+                    WardId = c.Int(nullable: true),
+                    DoctorId = c.Int(nullable: true),
+                })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Doctors", t => t.DoctorId)
                 .ForeignKey("dbo.Patients", t => t.PatientId)
-                .ForeignKey("dbo.Wards", t => t.WardId)
-                .Index(t => t.PatientId)
-                .Index(t => t.WardId)
-                .Index(t => t.DoctorId);
+                .ForeignKey("dbo.Wards", t => t.WardId);
             
             CreateTable(
                 "dbo.Doctors",
@@ -40,28 +37,27 @@
                         DateOfBirth = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
-            
+
             CreateTable(
                 "dbo.Medicines",
                 c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Sku = c.String(),
-                        Name = c.String(),
-                        Price = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        Indication = c.String(),
-                        CountryId = c.Int(),
-                    })
+                {
+                    Id = c.Int(nullable: false, identity: true),
+                    Sku = c.String(),
+                    Name = c.String(),
+                    Price = c.Decimal(nullable: false, precision: 18, scale: 2),
+                    Indication = c.String(),
+                    CountryId = c.Int(nullable: true),
+                })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Countries", t => t.CountryId)
-                .Index(t => t.CountryId);
+                .ForeignKey("dbo.Countries", t => t.CountryId);
             
             CreateTable(
                 "dbo.Countries",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
+                        Name = c.String()
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -127,7 +123,7 @@
                 "dbo.MedicineAdmissions",
                 c => new
                     {
-                        Medicine_Id = c.Int(nullable: true),
+                        Medicine_Id = c.Int(nullable: false),
                         Admission_Id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.Medicine_Id, t.Admission_Id })
@@ -140,32 +136,6 @@
         
         public override void Down()
         {
-            DropForeignKey("dbo.Role_User_Mapping", "UserId", "dbo.Users");
-            DropForeignKey("dbo.Role_User_Mapping", "RoleId", "dbo.Roles");
-            DropForeignKey("dbo.Admissions", "WardId", "dbo.Wards");
-            DropForeignKey("dbo.Admissions", "PatientId", "dbo.Patients");
-            DropForeignKey("dbo.Medicines", "CountryId", "dbo.Countries");
-            DropForeignKey("dbo.MedicineAdmissions", "Admission_Id", "dbo.Admissions");
-            DropForeignKey("dbo.MedicineAdmissions", "Medicine_Id", "dbo.Medicines");
-            DropForeignKey("dbo.Admissions", "DoctorId", "dbo.Doctors");
-            DropIndex("dbo.MedicineAdmissions", new[] { "Admission_Id" });
-            DropIndex("dbo.MedicineAdmissions", new[] { "Medicine_Id" });
-            DropIndex("dbo.Role_User_Mapping", new[] { "RoleId" });
-            DropIndex("dbo.Role_User_Mapping", new[] { "UserId" });
-            DropIndex("dbo.Medicines", new[] { "CountryId" });
-            DropIndex("dbo.Admissions", new[] { "DoctorId" });
-            DropIndex("dbo.Admissions", new[] { "WardId" });
-            DropIndex("dbo.Admissions", new[] { "PatientId" });
-            DropTable("dbo.MedicineAdmissions");
-            DropTable("dbo.Users");
-            DropTable("dbo.Roles");
-            DropTable("dbo.Role_User_Mapping");
-            DropTable("dbo.Wards");
-            DropTable("dbo.Patients");
-            DropTable("dbo.Countries");
-            DropTable("dbo.Medicines");
-            DropTable("dbo.Doctors");
-            DropTable("dbo.Admissions");
         }
     }
 }

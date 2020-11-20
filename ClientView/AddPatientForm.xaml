@@ -1,0 +1,26 @@
+﻿<Window x:Class="ClientView.AddPatientForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClientView"
+        mc:Ignorable="d"
+        Title="AddPatientForm" Height="413.151" Width="432.63">
+    <Grid>
+        <Label x:Name="LastNameLabel" Content="Прізвище:" HorizontalAlignment="Left" Margin="18,21,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label x:Name="FirstNameLabel" Content="Імя:" HorizontalAlignment="Left" Margin="18,50,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label x:Name="MiddleNameLabel" Content="По батькові:" HorizontalAlignment="Left" Margin="18,79,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label x:Name="AddressLabel" Content="Адреса:" HorizontalAlignment="Left" Margin="18,113,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label x:Name="InsurancePolicyLabel" Content="Страховий поліс:" HorizontalAlignment="Left" Margin="18,147,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label x:Name="DateOfBirthLabel" Content="Дата народження:" HorizontalAlignment="Left" Margin="18,181,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label x:Name="StatusLabel" Content="Status:" HorizontalAlignment="Left" Margin="27,296,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox x:Name="LastNameTextBox" HorizontalAlignment="Left" Height="23" Margin="186,27,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="205"/>
+        <TextBox x:Name="FirstNameTextBox" HorizontalAlignment="Left" Height="23" Margin="186,56,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="205"/>
+        <TextBox x:Name="MiddleNameTextBox" HorizontalAlignment="Left" Height="23" Margin="186,85,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="205"/>
+        <TextBox x:Name="AddressTextBox" HorizontalAlignment="Left" Height="23" Margin="186,119,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="205"/>
+        <TextBox x:Name="InsurancePolicyTextBox" HorizontalAlignment="Left" Height="23" Margin="186,153,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="205"/>
+        <DatePicker x:Name="DateOfBirthDataPicker" HorizontalAlignment="Left" Margin="186,186,0,0" VerticalAlignment="Top" Width="205"/>
+        <Button x:Name="AddPatientBtn" Content="Додати" HorizontalAlignment="Left" Margin="186,239,0,0" VerticalAlignment="Top" Width="205" Height="35" Click="AddPatientBtn_Click"/>
+
+    </Grid>
+</Window>

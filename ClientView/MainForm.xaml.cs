@@ -25,8 +25,24 @@ namespace ClientView
         public MainForm()
         {
             InitializeComponent();
-
+            if (SingletoneObj.Windows.ContainsKey("AuthorizationForm"))
+            {
+                SingletoneObj.Windows["AuthorizationForm"].Close();
+                SingletoneObj.Windows.Remove("AuthorizationForm");
+            }
+            bool IsAdmin = SingletoneObj.User.Role_User_Mappings.Select(el => el.Role.RoleName).Contains("Admin");
+            this.AddUserBtn.IsEnabled = IsAdmin;
+            this.ViewUsersBtn.IsEnabled = IsAdmin;
+            this.IPLabel.Content = "IP: " + SingletoneObj.IP;
+            this.PortLabel.Content = "Port: " + SingletoneObj.Port;
+            this.LoginLabel.Content = "Login: " + SingletoneObj.User.Login;
             tcpService = new TcpService();
+        }
+
+        private void AddPatientBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AddPatientForm form = new AddPatientForm();
+            form.ShowDialog();
         }
     }
 }

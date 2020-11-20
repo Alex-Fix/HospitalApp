@@ -17,20 +17,8 @@ namespace Data
         public string Specialization { get; set; }
         public string Phone { get; set; }
         public DateTime DateOfBirth { get; set; }
-        [JsonIgnore]
-        public virtual ICollection<Admission> Admissions { get; set; }
-        [NotMapped]
-        public List<Admission> AdmissionsList
-        {
-            get
-            {
-                return Admissions.ToList();
-            }
-            set
-            {
-                Admissions = value;
-            }
-        }
+        public ICollection<Admission> Admissions { get; set; }
+        
         public Doctor()
         {
             Admissions = new List<Admission>();

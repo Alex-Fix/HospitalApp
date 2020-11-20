@@ -122,7 +122,6 @@ namespace Services
                     foreach(var el in user.Role_User_Mappings)
                     {
                         el.User = null;
-                        var mapings = el.Role.Role_User_Mappings;
                         el.Role.Role_User_Mappings = null;
                     }
                 }
@@ -132,12 +131,12 @@ namespace Services
             return response;
         }
 
-        public string SerializeAddPatientRequest(Patient patient)
+        public string SerializeAddPatientRequest(Patient patient, User user)
         {
             return JsonSerializer.Serialize<SocketNode>(new SocketNode
             {
                 Method = "AddPatient",
-                User = "",
+                User = JsonSerializer.Serialize<User>(user),
                 Args = JsonSerializer.Serialize<Patient>(patient)
             });
         }

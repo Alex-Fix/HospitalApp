@@ -14,21 +14,8 @@ namespace Data
         public string Login { get; set; }
         public string Password { get; set; }
 
-        [JsonIgnore]
-        public virtual ICollection<Role_User_Mapping> Role_User_Mappings { get; set; }
+        public ICollection<Role_User_Mapping> Role_User_Mappings { get; set; }
 
-        [NotMapped]
-        public List<Role_User_Mapping> Role_User_MappingsList
-        {
-            get
-            {
-                return Role_User_Mappings.ToList();
-            }
-            set
-            {
-                Role_User_Mappings = value;
-            }
-        }
 
         public User()
         {

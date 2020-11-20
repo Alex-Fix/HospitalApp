@@ -17,24 +17,7 @@ namespace Data
         public string Address { get; set; }
         public string InsurancePolicy { get; set; }
         public DateTime DateOfBirth { get; set; }
-        [JsonIgnore]
-        public virtual ICollection<Admission> Admissions { get; set; }
-        [NotMapped]
-        public List<Admission> AdditionList
-        {
-            get
-            {
-                return Admissions.ToList();
-            }
-            set
-            {
-                Admissions = value;
-            }
-        }
-
-        public Patient()
-        {
-            Admissions = new List<Admission>();
-        }
+        public ICollection<Admission> Admissions { get; set; }
+        
     }
 }

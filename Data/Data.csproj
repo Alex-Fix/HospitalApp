@@ -84,17 +84,13 @@
     <Compile Include="Country.cs" />
     <Compile Include="Doctor.cs" />
     <Compile Include="Medicine.cs" />
-    <Compile Include="Migrations\202011151754487_CreateDatabase.cs" />
-    <Compile Include="Migrations\202011151754487_CreateDatabase.designer.cs">
-      <DependentUpon>202011151754487_CreateDatabase.cs</DependentUpon>
+    <Compile Include="Migrations\202011202103462_CreateDatabase.cs" />
+    <Compile Include="Migrations\202011202103462_CreateDatabase.designer.cs">
+      <DependentUpon>202011202103462_CreateDatabase.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202011151757177_InsertTestData.cs" />
-    <Compile Include="Migrations\202011151757177_InsertTestData.designer.cs">
-      <DependentUpon>202011151757177_InsertTestData.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202011192050530_Merge_Migrai.cs" />
-    <Compile Include="Migrations\202011192050530_Merge_Migrai.designer.cs">
-      <DependentUpon>202011192050530_Merge_Migrai.cs</DependentUpon>
+    <Compile Include="Migrations\202011202109491_InsertUsers.cs" />
+    <Compile Include="Migrations\202011202109491_InsertUsers.designer.cs">
+      <DependentUpon>202011202109491_InsertUsers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Patient.cs" />
@@ -110,14 +106,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202011151754487_CreateDatabase.resx">
-      <DependentUpon>202011151754487_CreateDatabase.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202011202103462_CreateDatabase.resx">
+      <DependentUpon>202011202103462_CreateDatabase.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011151757177_InsertTestData.resx">
-      <DependentUpon>202011151757177_InsertTestData.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011192050530_Merge_Migrai.resx">
-      <DependentUpon>202011192050530_Merge_Migrai.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202011202109491_InsertUsers.resx">
+      <DependentUpon>202011202109491_InsertUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
