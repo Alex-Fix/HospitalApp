@@ -11,15 +11,21 @@ namespace Data
     {
         public int Id { get; set; }
         public int WardNumber { get; set; }
-        public Comfort Comfot { get; set; }
-        public int NumberOfPaces { get; set; }
-        public ICollection<Admission> Admissions { get; set; }
-
-
-        public Ward()
+        public int ComfotId { get; set; }
+        public Comfort Comfort
         {
-            Admissions = new List<Admission>();
+            get { return (Comfort)ComfotId; }
+            set { ComfotId = (int)value; }
         }
+
+        public int NumberOfPaces { get; set; }
+        private ICollection<Admission> _admissions;
+        public virtual ICollection<Admission> Admissions
+        {
+            get { return _admissions ?? (_admissions = new List<Admission>()); }
+            set { _admissions = value; }
+        }
+
     }
     public enum Comfort
     {

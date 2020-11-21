@@ -13,9 +13,9 @@ namespace Services
     public class TcpService
     {
         private readonly DataService dataService;
-        public TcpService(ApplicationContext context= null)
+        public TcpService(ApplicationContext context = null)
         {
-            if(context != null)
+            if (context != null)
                 dataService = new DataService(context);
         }
 
@@ -23,13 +23,13 @@ namespace Services
         public string DecodeAndProcessRequest(string request)
         {
             var socketNode = JsonSerializer.Deserialize<SocketNode>(request);
-            TcpMethods tcpMethod; 
+            TcpMethods tcpMethod;
             string response = "";
-            if(!Enum.TryParse<TcpMethods>(socketNode.Method, out tcpMethod))
+            if (!Enum.TryParse<TcpMethods>(socketNode.Method, out tcpMethod))
             {
                 tcpMethod = TcpMethods.NONE;
             }
-                    
+
 
             switch (tcpMethod)
             {
@@ -42,11 +42,17 @@ namespace Services
                 case TcpMethods.AddDoctor:
                     response = AddDoctor(socketNode);
                     break;
+                case TcpMethods.InitRolesInForm:
+                    response = InitRolesInForm();
+                    break;
+                case TcpMethods.AddUser:
+                    response = AddUser(socketNode);
+                    break;
                 default:
                     break;
             }
 
-            return response; 
+            return response;
         }
 
         public async Task<string> DecodeStreamAsync(NetworkStream stream)
@@ -110,16 +116,16 @@ namespace Services
             string response = "";
             User requestUser = JsonSerializer.Deserialize<User>(node.User);
 
-            if(requestUser!= null)
+            if (requestUser != null)
             {
                 User user = dataService.GetUser(requestUser.Login, requestUser.Password);
-                if(user == null)
+                if (user == null)
                 {
                     user = new User();
                 }
                 else
                 {
-                    foreach(var el in user.Role_User_Mappings)
+                    foreach (var el in user.Role_User_Mappings)
                     {
                         el.User = null;
                         el.Role.Role_User_Mappings = null;
@@ -149,19 +155,19 @@ namespace Services
                 dataService.InsertPatient(requestPatient);
                 return "200";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return "500;" + ex.Message;
             }
         }
 
 
-        public string SerializeAddDoctorRequest(Doctor doctor)
+        public string SerializeAddDoctorRequest(Doctor doctor, User user)
         {
             return JsonSerializer.Serialize<SocketNode>(new SocketNode
             {
                 Method = "AddDoctor",
-                User = "",
+                User = JsonSerializer.Serialize<User>(user),
                 Args = JsonSerializer.Serialize<Doctor>(doctor)
             });
         }
@@ -180,6 +186,59 @@ namespace Services
             }
         }
 
+        public string SerializeInitRolesInFormRequest(User user)
+        {
+            return JsonSerializer.Serialize<SocketNode>(new SocketNode {
+                Method = "InitRolesInForm",
+                User = JsonSerializer.Serialize<User>(user)
+            });
+        }
+
+        public List<Role> DeserializeInitRolesInFormResponse(string response)
+        {
+            return JsonSerializer.Deserialize<List<Role>>(response);
+        }
+
+        private string InitRolesInForm()
+        {
+            try
+            {
+                List<Role> roles = dataService.GetAllRoles();
+                return JsonSerializer.Serialize<List<Role>>(roles.Select(x => new Role { 
+                    RoleName = x.RoleName,
+                    Id = x.Id
+                }).ToList());
+            }
+            catch(Exception ex)
+            {
+                return "500;" + ex.Message;
+            }
+        }
+
+        public string SerializeAddUserRequest(User newUser, User curUser)
+        {
+            return JsonSerializer.Serialize<SocketNode>(new SocketNode
+            {
+                Method = "AddUser",
+                User = JsonSerializer.Serialize<User>(curUser),
+                Args = JsonSerializer.Serialize<User>(newUser)
+            });
+        }
+
+        private string AddUser(SocketNode socketNode)
+        {
+            try
+            {
+                User user = JsonSerializer.Deserialize<User>(socketNode.Args);
+                dataService.InsertUser(user);
+                return "200";
+            }
+            catch(Exception ex)
+            {
+                return "500;" + ex.Message;
+            }
+        }
+
     }
 
     
@@ -189,6 +248,8 @@ namespace Services
         NONE,
         Authorize,
         AddPatient,
-        AddDoctor
+        AddDoctor,
+        InitRolesInForm,
+        AddUser
     }
 }

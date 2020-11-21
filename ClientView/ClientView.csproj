@@ -55,8 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddDoctorForm.xaml.cs">
+      <DependentUpon>AddDoctorForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddPatientForm.xaml.cs">
       <DependentUpon>AddPatientForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddUserForm.xaml.cs">
+      <DependentUpon>AddUserForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -107,7 +113,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="AddDoctorForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddPatientForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddUserForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

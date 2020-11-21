@@ -10,54 +10,54 @@
             CreateTable(
                 "dbo.Admissions",
                 c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    PatientId = c.Int(nullable: true),
-                    DateOfReceipt = c.DateTime(nullable: false),
-                    DischargeDate = c.DateTime(nullable: false),
-                    Diagnosis = c.String(),
-                    WardId = c.Int(nullable: true),
-                    DoctorId = c.Int(nullable: true),
-                })
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        PatientId = c.Int(),
+                        DateOfReceipt = c.DateTime(nullable: false),
+                        DischargeDate = c.DateTime(),
+                        Diagnosis = c.String(nullable: false),
+                        WardId = c.Int(),
+                        DoctorId = c.Int(),
+                    })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Doctors", t => t.DoctorId)
-                .ForeignKey("dbo.Patients", t => t.PatientId)
-                .ForeignKey("dbo.Wards", t => t.WardId);
+                .Index(t => t.PatientId)
+                .Index(t => t.WardId)
+                .Index(t => t.DoctorId);
             
             CreateTable(
                 "dbo.Doctors",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        FirstName = c.String(),
-                        LastName = c.String(),
-                        MiddleName = c.String(),
-                        Specialization = c.String(),
-                        Phone = c.String(),
+                        FirstName = c.String(nullable: false),
+                        LastName = c.String(nullable: false),
+                        MiddleName = c.String(nullable: false),
+                        Specialization = c.String(nullable: false),
+                        Phone = c.String(nullable: false),
                         DateOfBirth = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
-
+            
             CreateTable(
                 "dbo.Medicines",
                 c => new
-                {
-                    Id = c.Int(nullable: false, identity: true),
-                    Sku = c.String(),
-                    Name = c.String(),
-                    Price = c.Decimal(nullable: false, precision: 18, scale: 2),
-                    Indication = c.String(),
-                    CountryId = c.Int(nullable: true),
-                })
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Sku = c.String(nullable: false),
+                        Name = c.String(nullable: false),
+                        Price = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Indication = c.String(nullable: false),
+                        CountryId = c.Int(),
+                    })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Countries", t => t.CountryId);
+                .Index(t => t.CountryId);
             
             CreateTable(
                 "dbo.Countries",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String()
+                        Name = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -66,11 +66,11 @@
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        FirstName = c.String(),
-                        LastName = c.String(),
-                        MiddleName = c.String(),
-                        Address = c.String(),
-                        InsurancePolicy = c.String(),
+                        FirstName = c.String(nullable: false),
+                        LastName = c.String(nullable: false),
+                        MiddleName = c.String(nullable: false),
+                        Address = c.String(nullable: false),
+                        InsurancePolicy = c.String(nullable: false),
                         DateOfBirth = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
@@ -81,13 +81,13 @@
                     {
                         Id = c.Int(nullable: false, identity: true),
                         WardNumber = c.Int(nullable: false),
-                        Comfot = c.Int(nullable: false),
+                        ComfotId = c.Int(nullable: false),
                         NumberOfPaces = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Role_User_Mapping",
+                "dbo.Role_User_Mappings",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -95,8 +95,6 @@
                         RoleId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Roles", t => t.RoleId)
-                .ForeignKey("dbo.Users", t => t.UserId)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
             
@@ -105,7 +103,7 @@
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        RoleName = c.String(),
+                        RoleName = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -114,8 +112,8 @@
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Login = c.String(),
-                        Password = c.String(),
+                        Login = c.String(nullable: false),
+                        Password = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -127,8 +125,6 @@
                         Admission_Id = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => new { t.Medicine_Id, t.Admission_Id })
-                .ForeignKey("dbo.Medicines", t => t.Medicine_Id)
-                .ForeignKey("dbo.Admissions", t => t.Admission_Id)
                 .Index(t => t.Medicine_Id)
                 .Index(t => t.Admission_Id);
             
@@ -136,6 +132,24 @@
         
         public override void Down()
         {
+             DropIndex("dbo.MedicineAdmissions", new[] { "Admission_Id" });
+            DropIndex("dbo.MedicineAdmissions", new[] { "Medicine_Id" });
+            DropIndex("dbo.Role_User_Mappings", new[] { "RoleId" });
+            DropIndex("dbo.Role_User_Mappings", new[] { "UserId" });
+            DropIndex("dbo.Medicines", new[] { "CountryId" });
+            DropIndex("dbo.Admissions", new[] { "DoctorId" });
+            DropIndex("dbo.Admissions", new[] { "WardId" });
+            DropIndex("dbo.Admissions", new[] { "PatientId" });
+            DropTable("dbo.MedicineAdmissions");
+            DropTable("dbo.Users");
+            DropTable("dbo.Roles");
+            DropTable("dbo.Role_User_Mappings");
+            DropTable("dbo.Wards");
+            DropTable("dbo.Patients");
+            DropTable("dbo.Countries");
+            DropTable("dbo.Medicines");
+            DropTable("dbo.Doctors");
+            DropTable("dbo.Admissions");
         }
     }
 }

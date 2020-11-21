@@ -14,12 +14,13 @@ namespace Data
         public string Login { get; set; }
         public string Password { get; set; }
 
-        public ICollection<Role_User_Mapping> Role_User_Mappings { get; set; }
+        private ICollection<Role_User_Mapping> _role_user_mapings;
 
-
-        public User()
+        public virtual ICollection<Role_User_Mapping> Role_User_Mappings
         {
-            Role_User_Mappings = new List<Role_User_Mapping>();
+            get { return _role_user_mapings ?? (_role_user_mapings = new List<Role_User_Mapping>()); }
+            set { _role_user_mapings = value; }
         }
+
     }
 }

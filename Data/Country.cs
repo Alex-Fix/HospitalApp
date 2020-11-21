@@ -10,11 +10,14 @@ namespace Data
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<Medicine> Medicines { get; set; }
+        private ICollection<Medicine> _medisines;
 
-        public Country()
+        public virtual ICollection<Medicine> Medicines
         {
-            Medicines = new List<Medicine>();
+            get { return _medisines ?? (_medisines = new List<Medicine>()); }
+            set { _medisines = value; }
         }
+
+        
     }
 }

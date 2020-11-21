@@ -84,13 +84,13 @@
     <Compile Include="Country.cs" />
     <Compile Include="Doctor.cs" />
     <Compile Include="Medicine.cs" />
-    <Compile Include="Migrations\202011202103462_CreateDatabase.cs" />
-    <Compile Include="Migrations\202011202103462_CreateDatabase.designer.cs">
-      <DependentUpon>202011202103462_CreateDatabase.cs</DependentUpon>
+    <Compile Include="Migrations\202011211042355_CreateDatabase.cs" />
+    <Compile Include="Migrations\202011211042355_CreateDatabase.designer.cs">
+      <DependentUpon>202011211042355_CreateDatabase.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202011202109491_InsertUsers.cs" />
-    <Compile Include="Migrations\202011202109491_InsertUsers.designer.cs">
-      <DependentUpon>202011202109491_InsertUsers.cs</DependentUpon>
+    <Compile Include="Migrations\202011211046526_InsertUsers.cs" />
+    <Compile Include="Migrations\202011211046526_InsertUsers.designer.cs">
+      <DependentUpon>202011211046526_InsertUsers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Patient.cs" />
@@ -106,11 +106,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202011202103462_CreateDatabase.resx">
-      <DependentUpon>202011202103462_CreateDatabase.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202011211042355_CreateDatabase.resx">
+      <DependentUpon>202011211042355_CreateDatabase.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202011202109491_InsertUsers.resx">
-      <DependentUpon>202011202109491_InsertUsers.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202011211046526_InsertUsers.resx">
+      <DependentUpon>202011211046526_InsertUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

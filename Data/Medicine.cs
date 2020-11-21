@@ -14,12 +14,14 @@ namespace Data
         public decimal Price { get; set; }
         public string Indication { get; set; }
         public int? CountryId { get; set; }
-        public Country Country { get; set; }
-        public ICollection<Admission> Admissions { get; set; }
-        
-        public Medicine()
+        public virtual Country Country { get; set; }
+        private ICollection<Admission> _admissions;
+        public virtual ICollection<Admission> Admissions
         {
-            Admissions = new List<Admission>();
+            get { return _admissions ?? (_admissions = new List<Admission>()); }
+            set { _admissions = value; }
         }
+        
+        
     }
 }

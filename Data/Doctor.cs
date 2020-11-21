@@ -17,11 +17,12 @@ namespace Data
         public string Specialization { get; set; }
         public string Phone { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public ICollection<Admission> Admissions { get; set; }
-        
-        public Doctor()
+        private ICollection<Admission> _admissions;
+
+        public virtual ICollection<Admission> Admissions
         {
-            Admissions = new List<Admission>();
+            get { return _admissions ?? (_admissions = new List<Admission>()); }
+            set { _admissions = value; }
         }
     }
 }

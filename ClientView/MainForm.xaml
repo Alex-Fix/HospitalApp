@@ -11,8 +11,8 @@
         <Label x:Name="PortLabel" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,36,0,0"/>
         <Label x:Name="LoginLabel" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,62,0,0" RenderTransformOrigin="1.132,2.462"/>
         <Button x:Name="AddPatientBtn" Content="Додати пацієнта" HorizontalAlignment="Left" Margin="174,10,0,0" VerticalAlignment="Top" Width="180" Height="80" Click="AddPatientBtn_Click"/>
-        <Button x:Name="AddDoctorBtn" Content="Додати лікаря" HorizontalAlignment="Left" Margin="372,10,0,0" VerticalAlignment="Top" Width="180" Height="80"/>
-        <Button x:Name="AddUserBtn" Content="Додати користувача" HorizontalAlignment="Left" Margin="569,10,0,0" VerticalAlignment="Top" Width="180" Height="80"/>
+        <Button x:Name="AddDoctorBtn" Content="Додати лікаря" HorizontalAlignment="Left" Margin="372,10,0,0" VerticalAlignment="Top" Width="180" Height="80" Click="AddDoctorBtn_Click"/>
+        <Button x:Name="AddUserBtn" Content="Додати користувача" HorizontalAlignment="Left" Margin="569,10,0,0" VerticalAlignment="Top" Width="180" Height="80" Click="AddUserBtn_Click"/>
         <Button x:Name="ViewPatientsBtn" Content="Переглянути пацієнтів" HorizontalAlignment="Left" Margin="174,108,0,0" VerticalAlignment="Top" Width="180" Height="80"/>
         <Button x:Name="ViewDoctorsBtn" Content="Переглянути лікарів" HorizontalAlignment="Left" Margin="372,108,0,0" VerticalAlignment="Top" Width="180" Height="80"/>
         <Button x:Name="ViewUsersBtn" Content="Переглянути користувачів" HorizontalAlignment="Left"  Margin="569,108,0,0" VerticalAlignment="Top" Width="180" Height="80"/>

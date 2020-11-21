@@ -10,20 +10,22 @@ namespace Data
     {
         public int Id { get; set; }
         public int? PatientId { get; set; }
-        public Patient Patient { get; set; }
+        public virtual Patient Patient { get; set; }
         public DateTime DateOfReceipt { get; set; }
         public DateTime DischargeDate { get; set; }
         public string Diagnosis { get; set; }
         public int? WardId { get; set; }
-        public Ward Ward { get; set; }
+        public virtual Ward Ward { get; set; }
         public int? DoctorId { get; set; }
-        public Doctor Doctor { get; set; }
-        public ICollection<Medicine> Medicines { get; set; }
+        public virtual Doctor Doctor { get; set; }
+        private ICollection<Medicine> _medicines;
 
-        public Admission()
+        public virtual ICollection<Medicine> Medisines
         {
-            Medicines = new List<Medicine>();
+            get { return _medicines ?? (_medicines = new List<Medicine>()); }
+            set { _medicines = value; }
         }
+
     }
 
 }

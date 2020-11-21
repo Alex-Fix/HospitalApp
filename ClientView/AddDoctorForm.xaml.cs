@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,29 +18,28 @@ using System.Windows.Shapes;
 namespace ClientView
 {
     /// <summary>
-    /// Interaction logic for AddPatientForm.xaml
+    /// Interaction logic for AddDoctorForm.xaml
     /// </summary>
-    public partial class AddPatientForm : Window
+    public partial class AddDoctorForm : Window
     {
         private readonly TcpService tcpService;
-
-        public AddPatientForm()
+        public AddDoctorForm()
         {
             InitializeComponent();
             DateOfBirthDataPicker.SelectedDate = DateTime.Now;
             tcpService = new TcpService();
         }
 
-        private async void AddPatientBtn_Click(object sender, RoutedEventArgs e)
+        private async void AddDoctorBtn_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                AddPatientBtn.IsEnabled = false;
+                AddDoctorBtn.IsEnabled = false;
                 string firstName = FirstNameTextBox.Text;
                 string lastName = LastNameTextBox.Text;
                 string middleName = MiddleNameTextBox.Text;
-                string address = AddressTextBox.Text;
-                string insurancePolicy = InsurancePolicyTextBox.Text;
+                string phone = PhoneTextBox.Text;
+                string specialization = SpecializationTextBox.Text;
                 DateTime dateOfBirth;
                 if (string.IsNullOrWhiteSpace(firstName))
                     throw new ArgumentNullException($"'{nameof(firstName)}' is incorrect");
@@ -47,39 +47,39 @@ namespace ClientView
                     throw new ArgumentNullException($"'{nameof(lastName)}' is incorrect");
                 if (string.IsNullOrWhiteSpace(middleName))
                     throw new ArgumentNullException($"'{nameof(middleName)}' is incorrect");
-                if (string.IsNullOrWhiteSpace(address))
-                    throw new ArgumentNullException($"'{nameof(address)}' is incorrect");
-                if (string.IsNullOrWhiteSpace(insurancePolicy))
-                    throw new ArgumentNullException($"'{nameof(insurancePolicy)}' is incorrect");
+                if (string.IsNullOrWhiteSpace(phone) || phone.Length !=10 || !Regex.IsMatch(phone, "0[0-9]{9}"))
+                    throw new ArgumentNullException($"'{nameof(phone)}' is incorrect");
+                if (string.IsNullOrWhiteSpace(specialization))
+                    throw new ArgumentNullException($"'{nameof(specialization)}' is incorrect");
                 if (!DateOfBirthDataPicker.SelectedDate.HasValue || DateOfBirthDataPicker.SelectedDate.Value > DateTime.Now)
                     throw new ArgumentNullException($"'{nameof(dateOfBirth)}' is incorrect");
 
                 dateOfBirth = DateOfBirthDataPicker.SelectedDate.Value;
 
-                Patient requestPatient = new Patient
+                Doctor requestDoctor = new Doctor
                 {
                     FirstName = firstName,
                     LastName = lastName,
                     MiddleName = middleName,
-                    Address = address,
-                    InsurancePolicy = insurancePolicy,
+                    Phone = phone,
+                    Specialization = specialization,
                     DateOfBirth = dateOfBirth
                 };
 
-                string request = tcpService.SerializeAddPatientRequest(requestPatient, SingletoneObj.User);
+                string request = tcpService.SerializeAddDoctorRequest(requestDoctor, SingletoneObj.User);
                 byte[] data = await tcpService.CodeStreamAsync(request);
                 await SingletoneObj.Stream.WriteAsync(data, 0, data.Length);
                 string response = await tcpService.DecodeStreamAsync(SingletoneObj.Stream);
                 var responseArgs = response.Split(';');
-                if(responseArgs.Length > 1 && responseArgs[0].Contains("500"))
+                if (responseArgs.Length > 1 && responseArgs[0].Contains("500"))
                 {
                     throw new ArgumentException(responseArgs[1]);
                 }
                 this.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                AddPatientBtn.IsEnabled = true;
+                AddDoctorBtn.IsEnabled = true;
                 StatusLabel.Content = "Status: " + ex.Message;
             }
         }

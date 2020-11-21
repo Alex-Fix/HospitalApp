@@ -44,5 +44,17 @@ namespace ClientView
             AddPatientForm form = new AddPatientForm();
             form.ShowDialog();
         }
+
+        private void AddDoctorBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AddDoctorForm form = new AddDoctorForm();
+            form.ShowDialog();
+        }
+
+        private async void AddUserBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AddUserForm form = await AddUserForm.CreateAsyncAddUserForm();
+            form.ShowDialog();
+        }
     }
 }

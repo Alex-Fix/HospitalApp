@@ -17,7 +17,13 @@ namespace Data
         public string Address { get; set; }
         public string InsurancePolicy { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public ICollection<Admission> Admissions { get; set; }
+        private ICollection<Admission> _admissions;
+
+        public virtual ICollection<Admission> Admissions
+        {
+            get { return _admissions ?? (_admissions = new List<Admission>()); }
+            set { _admissions = value; }
+        }
         
     }
 }
