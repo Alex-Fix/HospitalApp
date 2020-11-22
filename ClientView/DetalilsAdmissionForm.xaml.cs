@@ -210,6 +210,7 @@ namespace ClientView
                         var admission = allMedisines.First(el => el.Id == item);
                         allMedisines.Remove(admission);
                         addmissionMedisines.Add(admission);
+                        selectedAdmission.Medisines.Add(admission);
                     }
                 }
             }
