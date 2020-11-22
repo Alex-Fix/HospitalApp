@@ -22,5 +22,11 @@ namespace Data
             set { _role_user_mapings = value; }
         }
 
+        [NotMapped]
+        public string ShortInfo
+        {
+            get { return $"Логін: {Login}\tПароль: {Password}"; }
+        }
+
     }
 }

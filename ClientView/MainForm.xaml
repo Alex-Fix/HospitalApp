@@ -14,14 +14,14 @@
         <Button x:Name="AddDoctorBtn" Content="Додати лікаря" HorizontalAlignment="Left" Margin="372,10,0,0" VerticalAlignment="Top" Width="180" Height="80" Click="AddDoctorBtn_Click"/>
         <Button x:Name="AddUserBtn" Content="Додати користувача" HorizontalAlignment="Left" Margin="569,10,0,0" VerticalAlignment="Top" Width="180" Height="80" Click="AddUserBtn_Click"/>
         <Button x:Name="ViewPatientsBtn" Content="Переглянути пацієнтів" HorizontalAlignment="Left" Margin="174,108,0,0" VerticalAlignment="Top" Width="180" Height="80" Click="ViewPatientsBtn_Click"/>
-        <Button x:Name="ViewDoctorsBtn" Content="Переглянути лікарів" HorizontalAlignment="Left" Margin="372,108,0,0" VerticalAlignment="Top" Width="180" Height="80"/>
-        <Button x:Name="ViewUsersBtn" Content="Переглянути користувачів" HorizontalAlignment="Left"  Margin="569,108,0,0" VerticalAlignment="Top" Width="180" Height="80"/>
+        <Button x:Name="ViewDoctorsBtn" Content="Переглянути лікарів" HorizontalAlignment="Left" Margin="372,108,0,0" VerticalAlignment="Top" Width="180" Height="80" Click="ViewDoctorsBtn_Click"/>
+        <Button x:Name="ViewUsersBtn" Content="Переглянути користувачів" HorizontalAlignment="Left"  Margin="569,108,0,0" VerticalAlignment="Top" Width="180" Height="80" Click="ViewUsersBtn_Click"/>
         <Button x:Name="AddWardBtn" Content="Додати палату" HorizontalAlignment="Left" Margin="174,206,0,0" VerticalAlignment="Top" Width="180" Height="80" Click="AddWardBtn_Click"/>
         <Button x:Name="AddMedicineBtn" Content="Додати ліки" HorizontalAlignment="Left" Margin="372,206,0,0" VerticalAlignment="Top" Width="180" Height="80" Click="AddMedicineBtn_Click"/>
         <Button x:Name="AddAddmitionBtn" Content="Додати надходження" HorizontalAlignment="Left"  Margin="569,206,0,0" VerticalAlignment="Top" Width="180" Height="80" Click="AddAddmitionBtn_Click"/>
         <Button x:Name="ViewWardBtn" Content="Переглянути палату" HorizontalAlignment="Left" Margin="174,304,0,0" VerticalAlignment="Top" Width="180" Height="80"/>
-        <Button x:Name="ViewMedicineBtn" Content="Переглянути ліки" HorizontalAlignment="Left" Margin="372,304,0,0" VerticalAlignment="Top" Width="180" Height="80"/>
-        <Button x:Name="ViewAddmitionBtn" Content="Переглянути надходження" HorizontalAlignment="Left"  Margin="569,304,0,0" VerticalAlignment="Top" Width="180" Height="80"/>
+        <Button x:Name="ViewMedicineBtn" Content="Переглянути ліки" HorizontalAlignment="Left" Margin="372,304,0,0" VerticalAlignment="Top" Width="180" Height="80" Click="ViewMedicineBtn_Click"/>
+        <Button x:Name="ViewAddmitionBtn" Content="Переглянути надходження" HorizontalAlignment="Left"  Margin="569,304,0,0" VerticalAlignment="Top" Width="180" Height="80" Click="ViewAddmitionBtn_Click"/>
         <Button x:Name="ExitBtn" Content="Вийти" HorizontalAlignment="Left" Margin="21,355,0,0" VerticalAlignment="Top" Width="95" Height="29" Click="ExitBtn_Click"/>
     </Grid>
 </Window>

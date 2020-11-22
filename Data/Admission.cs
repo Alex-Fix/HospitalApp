@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,11 @@ namespace Data
             set { _medicines = value; }
         }
 
+        [NotMapped]
+        public string ShortInfo
+        {
+            get { return $"ПІБ: {Patient?.FullName ?? "noname"}\tДата надходження: {DateOfReceipt.ToString()}"; }
+        }
     }
 
 }

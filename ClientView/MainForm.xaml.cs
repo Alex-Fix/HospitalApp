@@ -125,5 +125,45 @@ namespace ClientView
             }
             catch (Exception) { }
         }
+
+        private async void ViewDoctorsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ViewDoctorsForm form = await ViewDoctorsForm.CreateAsyncViewDoctorsForm();
+                form.ShowDialog();
+            }
+            catch (Exception) { }
+        }
+
+        private async void ViewUsersBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ViewUsersForm form = await ViewUsersForm.CreateAsyncViewUsersForm();
+                form.ShowDialog();
+            }
+            catch (Exception) { }
+        }
+
+        private async void ViewMedicineBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ViewMedicinesForm form = await ViewMedicinesForm.CreateAsyncViewMedicinesForm();
+                form.ShowDialog();
+            }
+            catch (Exception) { }
+        }
+
+        private async void ViewAddmitionBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ViewAdmissionsForm form = await ViewAdmissionsForm.CreateAsyncViewAdmissionsForm();
+                form.ShowDialog();
+            }
+            catch (Exception) { }
+        }
     }
 }

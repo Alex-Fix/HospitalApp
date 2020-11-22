@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,10 @@ namespace Data
             get { return _admissions ?? (_admissions = new List<Admission>()); }
             set { _admissions = value; }
         }
-        
-        
+        [NotMapped]
+        public string ShortInfo
+        {
+            get { return $"Назва: {Name}\tАртикул: {Sku}"; }
+        }
     }
 }

@@ -17,5 +17,6 @@ namespace ClientView
         public static TcpClient Client { get; set; }
         public static NetworkStream Stream { get; set; }
         public static Dictionary<string,Window> Windows { get; set; } = new Dictionary<string, Window>();
+        public static DateTime? DischargeDate { get; set; }
     }
 }

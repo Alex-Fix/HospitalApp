@@ -66,6 +66,36 @@ namespace Services
                 case TcpMethods.DeletePatient:
                     response = DeletePatient(socketNode);
                     break;
+                case TcpMethods.InitDoctorsInViewDoctorsForm:
+                    response = InitDoctorsInViewDoctorsForm();
+                    break;
+                case TcpMethods.DeleteDoctor:
+                    response = DeleteDoctor(socketNode);
+                    break;
+                case TcpMethods.InitUsersInViewUsersForm:
+                    response = InitUsersInViewUsersForm();
+                    break;
+                case TcpMethods.DeleteUser:
+                    response = DeleteUser(socketNode);
+                    break;
+                case TcpMethods.InitMedicinesInViewMedicinesForm:
+                    response = InitMedicinesInViewMedicinesForm();
+                    break;
+                case TcpMethods.DeleteMedicine:
+                    response = DeleteMedicine(socketNode);
+                    break;
+                case TcpMethods.InitAdmissionsInViewAdmissionsForm:
+                    response = InitAdmissionsInViewAdmissionsForm();
+                    break;
+                case TcpMethods.DeleteAdmission:
+                    response = DeleteAdmission(socketNode);
+                    break;
+                case TcpMethods.MoveMedicinesToAdmission:
+                    response = MoveMedicinesToAdmission(socketNode);
+                    break;
+                case TcpMethods.CloseAdmission:
+                    response = CloseAdmission(socketNode);
+                    break;
                 default:
                     break;
             }
@@ -222,12 +252,12 @@ namespace Services
             try
             {
                 List<Role> roles = dataService.GetAllRoles();
-                return JsonSerializer.Serialize<List<Role>>(roles.Select(x => new Role { 
+                return JsonSerializer.Serialize<List<Role>>(roles.Select(x => new Role {
                     RoleName = x.RoleName,
                     Id = x.Id
                 }).ToList());
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return "500;" + ex.Message;
             }
@@ -251,7 +281,7 @@ namespace Services
                 dataService.InsertUser(user);
                 return "200";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return "500;" + ex.Message;
             }
@@ -260,7 +290,7 @@ namespace Services
 
         public string SerializeAddWardRequest(Ward ward, User user)
         {
-            return JsonSerializer.Serialize<SocketNode>(new SocketNode { 
+            return JsonSerializer.Serialize<SocketNode>(new SocketNode {
                 Method = "AddWard",
                 User = JsonSerializer.Serialize<User>(user),
                 Args = JsonSerializer.Serialize<Ward>(ward)
@@ -275,7 +305,7 @@ namespace Services
                 dataService.InsertWard(ward);
                 return "200";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return "500;" + ex.Message;
             }
@@ -338,16 +368,28 @@ namespace Services
         {
             try
             {
-                var patients = dataService.GetAllPatients();
-                var wards = dataService.GetAllFreeWards();
-                var doctors = dataService.GetAllDoctors();
+                var patients = dataService.GetAllPatientsAndInfoAboutIt();
+                var wards = dataService.GetAllFreeWardsAndInfoAboutIt();
+                var doctors = dataService.GetAllDoctorsAndInfoAboutIt();
+                foreach (var el in patients)
+                {
+                    el.Admissions = null;
+                }
+                foreach (var el in wards)
+                {
+                    el.Admissions = null;
+                }
+                foreach (var el in doctors)
+                {
+                    el.Admissions = null;
+                }
                 return JsonSerializer.Serialize<List<string>>(new List<string> {
                     JsonSerializer.Serialize<List<Patient>>(patients),
                     JsonSerializer.Serialize<List<Ward>>(wards),
                     JsonSerializer.Serialize<List<Doctor>>(doctors)
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return "500;" + ex.Message;
             }
@@ -355,7 +397,7 @@ namespace Services
 
         public string SerializeAddAdmissionRequest(Admission admission, User user)
         {
-            return JsonSerializer.Serialize<SocketNode>(new SocketNode { 
+            return JsonSerializer.Serialize<SocketNode>(new SocketNode {
                 Method = "AddAdmission",
                 User = JsonSerializer.Serialize<User>(user),
                 Args = JsonSerializer.Serialize<Admission>(admission)
@@ -397,7 +439,7 @@ namespace Services
             try
             {
                 var patients = dataService.GetAllPatientsAndInfoAboutIt();
-                foreach(var patient in patients)
+                foreach (var patient in patients)
                 {
                     patient.Admissions = null;
                 }
@@ -433,6 +475,296 @@ namespace Services
             }
         }
 
+        public string SerializeInitDoctorsInViewDoctorsForm(User user)
+        {
+            return JsonSerializer.Serialize<SocketNode>(new SocketNode
+            {
+                Method = "InitDoctorsInViewDoctorsForm",
+                User = JsonSerializer.Serialize<User>(user)
+            });
+        }
+
+        public List<Doctor> DeseializeInitDoctorsInViewDoctorsForm(string response)
+        {
+            return JsonSerializer.Deserialize<List<Doctor>>(response);
+        }
+
+        private string InitDoctorsInViewDoctorsForm()
+        {
+            try
+            {
+                var doctors = dataService.GetAllDoctorsAndInfoAboutIt();
+                foreach (var doctor in doctors)
+                {
+                    doctor.Admissions = null;
+                }
+                return JsonSerializer.Serialize<List<Doctor>>(doctors);
+            }
+            catch (Exception ex)
+            {
+                return "500;" + ex.Message;
+            }
+        }
+
+        public string SerializeDeleteDoctor(int id, User user)
+        {
+            return JsonSerializer.Serialize<SocketNode>(new SocketNode
+            {
+                Method = "DeleteDoctor",
+                User = JsonSerializer.Serialize<User>(user),
+                Args = id.ToString()
+            });
+        }
+
+        private string DeleteDoctor(SocketNode socketNode)
+        {
+            try
+            {
+                int id = JsonSerializer.Deserialize<int>(socketNode.Args);
+                dataService.DeleteDoctor(id);
+                return "200";
+            }
+            catch (Exception ex)
+            {
+                return "500;" + ex.Message;
+            }
+        }
+
+        public string SerializeInitUsersInViewUsersForm(User user)
+        {
+            return JsonSerializer.Serialize<SocketNode>(new SocketNode
+            {
+                Method = "InitUsersInViewUsersForm",
+                User = JsonSerializer.Serialize<User>(user)
+            });
+        }
+
+        public List<User> DeseializeInitUserInViewUsersForm(string response)
+        {
+            return JsonSerializer.Deserialize<List<User>>(response);
+        }
+
+        private string InitUsersInViewUsersForm()
+        {
+            try
+            {
+                var users = dataService.GetAllUsersAndInfoAboutIt();
+                foreach (var user in users)
+                {
+                    foreach (var mepping in user.Role_User_Mappings)
+                    {
+                        mepping.User = null;
+                        mepping.Role.Role_User_Mappings = null;
+                    }
+                }
+                return JsonSerializer.Serialize<List<User>>(users);
+            }
+            catch (Exception ex)
+            {
+                return "500;" + ex.Message;
+            }
+        }
+
+        public string SerializeDeleteUser(int id, User user)
+        {
+            return JsonSerializer.Serialize<SocketNode>(new SocketNode
+            {
+                Method = "DeleteUser",
+                User = JsonSerializer.Serialize<User>(user),
+                Args = id.ToString()
+            });
+        }
+
+        private string DeleteUser(SocketNode socketNode)
+        {
+            try
+            {
+                int id = JsonSerializer.Deserialize<int>(socketNode.Args);
+                dataService.DeleteUser(id);
+                return "200";
+            }
+            catch (Exception ex)
+            {
+                return "500;" + ex.Message;
+            }
+        }
+
+        public string SerializeInitMedicinesInViewMedicinesForm(User user)
+        {
+            return JsonSerializer.Serialize<SocketNode>(new SocketNode
+            {
+                Method = "InitMedicinesInViewMedicinesForm",
+                User = JsonSerializer.Serialize<User>(user)
+            });
+        }
+
+        public List<Medicine> DeseializeInitMedicinesInViewMedicinesForm(string response)
+        {
+            return JsonSerializer.Deserialize<List<Medicine>>(response);
+        }
+
+        private string InitMedicinesInViewMedicinesForm()
+        {
+            try
+            {
+                var medicines = dataService.GetAllMedicinesAndInfoAboutIt();
+                foreach (var medicine in medicines)
+                {
+                    medicine.Admissions = null;
+                    medicine.Country.Medicines = null;
+                }
+                return JsonSerializer.Serialize<List<Medicine>>(medicines);
+            }
+            catch (Exception ex)
+            {
+                return "500;" + ex.Message;
+            }
+        }
+
+        public string SerializeDeleteMedicine(int id, User user)
+        {
+            return JsonSerializer.Serialize<SocketNode>(new SocketNode
+            {
+                Method = "DeleteMedicine",
+                User = JsonSerializer.Serialize<User>(user),
+                Args = id.ToString()
+            });
+        }
+
+        private string DeleteMedicine(SocketNode socketNode)
+        {
+            try
+            {
+                int id = JsonSerializer.Deserialize<int>(socketNode.Args);
+                dataService.DeleteMedicine(id);
+                return "200";
+            }
+            catch (Exception ex)
+            {
+                return "500;" + ex.Message;
+            }
+        }
+
+        public string SerializeInitAdmissionsInViewAdmissionsForm(User user)
+        {
+            return JsonSerializer.Serialize<SocketNode>(new SocketNode
+            {
+                Method = "InitAdmissionsInViewAdmissionsForm",
+                User = JsonSerializer.Serialize<User>(user)
+            });
+        }
+
+        public List<Admission> DeseializeInitAdmissionsInViewAdmissionsForm(string response)
+        {
+            return JsonSerializer.Deserialize<List<Admission>>(response);
+        }
+
+        private string InitAdmissionsInViewAdmissionsForm()
+        {
+            try
+            {
+                var admissions = dataService.GetAllAdmissionsAndInfoAboutIt();
+                foreach (var admission in admissions)
+                {
+                    if (admission.Doctor != null)
+                        admission.Doctor.Admissions = null;
+                    if (admission.Patient != null)
+                        admission.Patient.Admissions = null;
+                    if (admission.Ward != null)
+                        admission.Ward.Admissions = null;
+                    if (admission.Medisines != null)
+                    {
+                        foreach (var medicine in admission.Medisines)
+                        {
+                            if (medicine != null)
+                            {
+                                medicine.Admissions = null;
+                                if (medicine.Country != null)
+                                    medicine.Country.Medicines = null;
+                            }
+                        }
+                    }
+                }
+                return JsonSerializer.Serialize<List<Admission>>(admissions);
+            }
+            catch (Exception ex)
+            {
+                return "500;" + ex.Message;
+            }
+        }
+
+        public string SerializeDeleteAdmission(int id, User user)
+        {
+            return JsonSerializer.Serialize<SocketNode>(new SocketNode
+            {
+                Method = "DeleteAdmission",
+                User = JsonSerializer.Serialize<User>(user),
+                Args = id.ToString()
+            });
+        }
+
+        public string DeleteAdmission(SocketNode socketNode)
+        {
+            try
+            {
+                int id = JsonSerializer.Deserialize<int>(socketNode.Args);
+                dataService.DeleteAdmission(id);
+                return "200";
+            }
+            catch (Exception ex)
+            {
+                return "500;" + ex.Message;
+            }
+        }
+
+        public string SerializeMoveMedicinesToAdmission(Admission admission, User user)
+        {
+            return JsonSerializer.Serialize<SocketNode>(new SocketNode
+            {
+                Method = "MoveMedicinesToAdmission",
+                User = JsonSerializer.Serialize<User>(user),
+                Args = JsonSerializer.Serialize<Admission>(admission)
+            });
+        }
+
+        private string MoveMedicinesToAdmission(SocketNode socketNode)
+        {
+            try
+            {
+                Admission admission = JsonSerializer.Deserialize<Admission>(socketNode.Args);
+                dataService.InsertMedicineToAdmission(admission.Id, admission.Medisines.Select(el => el.Id).ToList());
+                return "200";
+            }
+            catch (Exception ex)
+            {
+                return "500;" + ex.Message;
+            }
+        }
+
+        public string SerializeCloseAdmission(Admission admission,User user)
+        {
+            return JsonSerializer.Serialize<SocketNode>(new SocketNode
+            {
+                Method = "CloseAdmission",
+                User = JsonSerializer.Serialize<User>(user),
+                Args = JsonSerializer.Serialize<Admission>(admission)
+            });
+        }
+
+        private string CloseAdmission(SocketNode socketNode)
+        {
+            try
+            {
+                Admission admission = JsonSerializer.Deserialize<Admission>(socketNode.Args);
+                dataService.CloseAdmission(admission.Id, admission.DischargeDate.Value);
+                return "200";
+            }
+            catch (Exception ex)
+            {
+                return "500;" + ex.Message;
+            }
+        }
+
     }
 
     
@@ -450,6 +782,16 @@ namespace Services
         InitModelsInAddAdmissionForm,
         AddAdmission,
         InitPatientsInViewPatientForm,
-        DeletePatient
+        DeletePatient,
+        InitDoctorsInViewDoctorsForm,
+        DeleteDoctor,
+        InitUsersInViewUsersForm,
+        DeleteUser,
+        InitMedicinesInViewMedicinesForm,
+        DeleteMedicine,
+        InitAdmissionsInViewAdmissionsForm,
+        DeleteAdmission,
+        MoveMedicinesToAdmission,
+        CloseAdmission
     }
 }

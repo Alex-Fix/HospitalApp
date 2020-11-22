@@ -175,6 +175,11 @@ namespace Services
             return _dbContext.Patients.Include(el => el.Admissions).ToList();
         }
 
+        public List<Ward> GetAllFreeWardsAndInfoAboutIt()
+        {
+            return _dbContext.Wards.Include(el => el.Admissions).Where(el => el.Admissions.Count() < el.NumberOfPaces).ToList();
+        }
+
         public void DeletePatient(int id)
         {
             var patient = _dbContext.Patients.FirstOrDefault(el => el.Id == id);
@@ -185,5 +190,113 @@ namespace Services
                 new SqlParameter("@Id", id));
         }
 
+        public List<Doctor> GetAllDoctorsAndInfoAboutIt()
+        {
+            return _dbContext.Doctors.Include(el => el.Admissions).ToList();
+        }
+
+        public void DeleteDoctor(int id)
+        {
+            var doctor = _dbContext.Doctors.FirstOrDefault(el => el.Id == id);
+            if (doctor == null)
+                throw new ArgumentException("The doctor does not exist");
+            var query = "DELETE FROM Doctors WHERE Id = @Id";
+            _dbContext.Database.ExecuteSqlCommand(query,
+                new SqlParameter("@Id", id));
+        }
+
+        public List<User> GetAllUsersAndInfoAboutIt()
+        {
+            return _dbContext.Users.Include(el => el.Role_User_Mappings.Select(x => x.Role)).ToList();
+        }
+
+        public void DeleteUser(int id)
+        {
+            var user = _dbContext.Users.FirstOrDefault(el => el.Id == id);
+            if (user == null)
+                throw new ArgumentException("The user does not exist");
+            var query = "DELETE FROM Users WHERE Id = @Id";
+            _dbContext.Database.ExecuteSqlCommand(query,
+                new SqlParameter("@Id", id));
+            query = "DELETE FROM Role_User_Mappings WHERE UserId = @UserId";
+            _dbContext.Database.ExecuteSqlCommand(query,
+                new SqlParameter("@UserId", id));
+        }
+
+        public List<Medicine> GetAllMedicinesAndInfoAboutIt()
+        {
+            return _dbContext.Medicines.Include(el => el.Admissions).Include(el => el.Country).ToList();
+        }
+
+        public void DeleteMedicine(int id)
+        {
+            var medicine = _dbContext.Medicines.FirstOrDefault(el => el.Id == id);
+            if (medicine == null)
+                throw new ArgumentException("The medicine does not exist");
+            var query = "DELETE FROM Medicines WHERE Id = @Id";
+            _dbContext.Database.ExecuteSqlCommand(query,
+                new SqlParameter("@Id", id));
+        }
+
+        public List<Admission> GetAllAdmissionsAndInfoAboutIt()
+        {
+            var query = "SELECT * FROM Admissions";
+            var admissions = _dbContext.Database.SqlQuery<Admission>(query).ToList();
+            foreach(var admission in admissions)
+            {
+                admission.Doctor = _dbContext.Database.SqlQuery<Doctor>("Select TOP(1) * FROM Doctors WHERE Id = @Id", new SqlParameter("@Id", admission.DoctorId)).FirstOrDefault();
+                admission.Patient = _dbContext.Database.SqlQuery<Patient>("Select TOP(1) * FROM Patients WHERE Id = @Id", new SqlParameter("@Id", admission.PatientId)).FirstOrDefault();
+                admission.Ward = _dbContext.Database.SqlQuery<Ward>("Select TOP(1) * FROM Wards WHERE Id = @Id", new SqlParameter("@Id", admission.WardId)).FirstOrDefault();
+                var medisineIds = _dbContext.Database.SqlQuery<int>("Select Medicine_Id FROM MedicineAdmissions WHERE Admission_Id = @Id", new SqlParameter("@Id", admission.Id)).ToList();
+                admission.Medisines = new List<Medicine>();
+                foreach(var id in medisineIds)
+                {
+                    var medicine = _dbContext.Database.SqlQuery<Medicine>("Select TOP(1) * FROM Medicines WHERE Id = @Id", new SqlParameter("@Id", id)).FirstOrDefault();
+                    admission.Medisines.Add(medicine);
+                }
+            }
+            return admissions;
+        }
+
+        public void DeleteAdmission(int id)
+        {
+            var admission = _dbContext.Admissions.FirstOrDefault(el => el.Id == id);
+            if (admission == null)
+                throw new ArgumentException("The admission does not exist");
+            var query = "DELETE FROM Admissions WHERE Id = @Id";
+            _dbContext.Database.ExecuteSqlCommand(query,
+                new SqlParameter("@Id", id));
+            query = "DELETE FROM MedicineAdmissions WHERE Admission_Id = @Id";
+            _dbContext.Database.ExecuteSqlCommand(query,
+                new SqlParameter("@Id", id));
+        }
+
+        public void InsertMedicineToAdmission(int admissionId, List<int> medicineIds)
+        {
+            var admission = _dbContext.Admissions.FirstOrDefault(el => el.Id == admissionId);
+            if (admission == null)
+                throw new ArgumentException("The admission does not exist");
+            var medicines = _dbContext.Medicines.Where(el => medicineIds.Contains(el.Id)).ToList();
+            if(medicines.Count() == 0)
+                throw new ArgumentException("The medicines does not exist");
+
+            var query = "INSERT INTO MedicineAdmissions (Medicine_Id, Admission_Id) VALUES(@Medicine_Id, @Admission_Id)";
+            foreach(var el in medicines)
+            {
+                _dbContext.Database.ExecuteSqlCommand(query,
+                    new SqlParameter("@Medicine_Id", el.Id),
+                    new SqlParameter("@Admission_Id", admissionId));
+            }
+        }
+
+        public void CloseAdmission(int id, DateTime dischargeDate)
+        {
+            var admission = _dbContext.Admissions.FirstOrDefault(el => el.Id == id);
+            if (admission == null)
+                throw new ArgumentException("The admission does not exist");
+            var query = "UPDATE Admissions SET DischargeDate = @DischargeDate WHERE Id = @Id";
+            _dbContext.Database.ExecuteSqlCommand(query, new SqlParameter("@DischargeDate", dischargeDate), new SqlParameter("@Id", id));
+            _dbContext.Admissions.Load();
+        }
     }
 }

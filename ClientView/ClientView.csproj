@@ -77,15 +77,39 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DetailsDoctorForm.xaml.cs">
+      <DependentUpon>DetailsDoctorForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DetailsMedicineForm.xaml.cs">
+      <DependentUpon>DetailsMedicineForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DetailsPatientForm.xaml.cs">
       <DependentUpon>DetailsPatientForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DetailsUserForm.xaml.cs">
+      <DependentUpon>DetailsUserForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DetalilsAdmissionForm.xaml.cs">
+      <DependentUpon>DetalilsAdmissionForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainForm.xaml.cs">
       <DependentUpon>MainForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="SingletoneObj.cs" />
+    <Compile Include="ViewAdmissionsForm.xaml.cs">
+      <DependentUpon>ViewAdmissionsForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewDoctorsForm.xaml.cs">
+      <DependentUpon>ViewDoctorsForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMedicinesForm.xaml.cs">
+      <DependentUpon>ViewMedicinesForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewPatientsForm.xaml.cs">
       <DependentUpon>ViewPatientsForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewUsersForm.xaml.cs">
+      <DependentUpon>ViewUsersForm.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -156,7 +180,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="DetailsDoctorForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DetailsMedicineForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="DetailsPatientForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DetailsUserForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DetalilsAdmissionForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -164,7 +204,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ViewAdmissionsForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewDoctorsForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewMedicinesForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ViewPatientsForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewUsersForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

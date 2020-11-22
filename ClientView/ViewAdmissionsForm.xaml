@@ -1,0 +1,27 @@
+﻿<Window x:Class="ClientView.ViewAdmissionsForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClientView"
+        mc:Ignorable="d"
+        Title="ViewAdmissionsForm" Height="450" Width="825.472">
+    <Grid>
+
+        <Label x:Name="AdmissionsLabel" Content="Надходження:" HorizontalAlignment="Left" Margin="34,30,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label x:Name="StatusLabel" Content="Status:" HorizontalAlignment="Left" Margin="34,350,0,0" VerticalAlignment="Top" FontSize="14"/>
+
+        <ListBox x:Name="AdmissionsListBox" HorizontalAlignment="Left" Height="298" Margin="146,30,0,0" VerticalAlignment="Top" Width="638" SelectionMode="Single">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding ShortInfo}" FontSize="12" Height="16"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button x:Name="DetailsBtn" Content="Деталі" HorizontalAlignment="Left" Margin="34,73,0,0" VerticalAlignment="Top" Width="70" Height="35" Click="DetailsBtn_Click" />
+        <Button x:Name="DeleteBtn" Content="Видалити" HorizontalAlignment="Left" Margin="34,131,0,0" VerticalAlignment="Top" Width="70" Height="35" Click="DeleteBtn_Click"/>
+        <Button x:Name="ExitBtn" Content="Вийти" HorizontalAlignment="Left" Margin="34,293,0,0" VerticalAlignment="Top" Width="70" Height="35" Click="ExitBtn_Click"/>
+
+    </Grid>
+</Window>

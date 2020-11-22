@@ -31,6 +31,12 @@ namespace Data
             get { return $"{LastName} {FirstName} {MiddleName}"; }
         }
 
+        [NotMapped]
+        public string ShortInfo
+        {
+            get { return $"ПІБ: {FullName}\tСпеціалізація: {Specialization}"; }
+        }
+
     }
 }
 
