@@ -55,8 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddAdmissionForm.xaml.cs">
+      <DependentUpon>AddAdmissionForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddDoctorForm.xaml.cs">
       <DependentUpon>AddDoctorForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddMedicineForm.xaml.cs">
+      <DependentUpon>AddMedicineForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="AddPatientForm.xaml.cs">
       <DependentUpon>AddPatientForm.xaml</DependentUpon>
@@ -64,14 +70,23 @@
     <Compile Include="AddUserForm.xaml.cs">
       <DependentUpon>AddUserForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddWardForm.xaml.cs">
+      <DependentUpon>AddWardForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DetailsPatientForm.xaml.cs">
+      <DependentUpon>DetailsPatientForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainForm.xaml.cs">
       <DependentUpon>MainForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="SingletoneObj.cs" />
+    <Compile Include="ViewPatientsForm.xaml.cs">
+      <DependentUpon>ViewPatientsForm.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthorizationForm.xaml.cs">
@@ -113,7 +128,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="AddAdmissionForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddDoctorForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddMedicineForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -125,11 +148,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="AddWardForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AuthorizationForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="DetailsPatientForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewPatientsForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

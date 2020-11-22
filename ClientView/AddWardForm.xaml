@@ -1,0 +1,25 @@
+﻿<Window x:Class="ClientView.AddWardForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClientView"
+        mc:Ignorable="d"
+        Title="AddWardForm" Height="379.6" Width="450.4">
+    <Grid>
+        <Label x:Name="WardNumberLabel" Content="Номер палати: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,23,0,0" FontSize="14"/>
+        <Label x:Name="ComforLabel" Content="Рівень комфорту: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,86,0,0" FontSize="14"/>
+        <Label x:Name="NumberOfPlacesLabel" Content="Кількість місць: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,52,0,0" FontSize="14"/>
+        <Label x:Name="StatusLabel" Content="Status: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,251,0,0" FontSize="14"/>
+        <TextBox x:Name="WardNumberTextBox" HorizontalAlignment="Left" Height="23" Margin="167,23,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="205"/>
+        <TextBox x:Name="CountOfPlacesTextBox" HorizontalAlignment="Left" Height="23" Margin="167,52,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="205"/>
+        <ListBox x:Name="ComfortListBox" HorizontalAlignment="Left" Height="100" Margin="167,86,0,0" VerticalAlignment="Top" Width="205" SelectionMode="Single">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" FontSize="12" Height="16"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button x:Name="AddWardBtn" Content="Додати палату" HorizontalAlignment="Left" Margin="167,199,0,0" VerticalAlignment="Top" Width="205" Height="35" Click="AddWardBtn_Click"/>
+    </Grid>
+</Window>

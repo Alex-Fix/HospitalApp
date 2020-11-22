@@ -26,6 +26,11 @@ namespace ClientView
         public AuthorizationForm()
         {
             InitializeComponent();
+            if (SingletoneObj.Windows.ContainsKey("MainForm"))
+            {
+                SingletoneObj.Windows["MainForm"].Close();
+                SingletoneObj.Windows.Remove("MainForm");
+            }
             this.tcpService = new TcpService();
         }
 

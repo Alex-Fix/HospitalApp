@@ -12,7 +12,7 @@ namespace Data
         public int? PatientId { get; set; }
         public virtual Patient Patient { get; set; }
         public DateTime DateOfReceipt { get; set; }
-        public DateTime DischargeDate { get; set; }
+        public DateTime? DischargeDate { get; set; }
         public string Diagnosis { get; set; }
         public int? WardId { get; set; }
         public virtual Ward Ward { get; set; }

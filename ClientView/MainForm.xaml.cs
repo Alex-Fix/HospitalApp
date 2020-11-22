@@ -56,5 +56,74 @@ namespace ClientView
             AddUserForm form = await AddUserForm.CreateAsyncAddUserForm();
             form.ShowDialog();
         }
+
+        private void AddWardBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AddWardForm form = new AddWardForm();
+            form.ShowDialog();
+        }
+
+        private void AddMedicineBtn_Click(object sender, RoutedEventArgs e)
+        {
+            AddMedicineForm form = new AddMedicineForm();
+            form.ShowDialog();
+        }
+
+        private async void ExitBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                AddPatientBtn.IsEnabled = false;
+                AddDoctorBtn.IsEnabled = false;
+                AddUserBtn.IsEnabled = false;
+                ViewPatientsBtn.IsEnabled = false;
+                ViewDoctorsBtn.IsEnabled = false;
+                ViewUsersBtn.IsEnabled = false;
+                AddWardBtn.IsEnabled = false;
+                AddMedicineBtn.IsEnabled = false;
+                AddAddmitionBtn.IsEnabled = false;
+                ViewWardBtn.IsEnabled = false;
+                ViewMedicineBtn.IsEnabled = false;
+                ViewAddmitionBtn.IsEnabled = false;
+                ExitBtn.IsEnabled = false;
+
+                string request = "LogOut";
+                byte[] data = await tcpService.CodeStreamAsync(request);
+                await SingletoneObj.Stream.WriteAsync(data, 0, data.Length);
+
+            }
+            catch (Exception) { }
+            finally
+            {
+                if (SingletoneObj.Stream != null)
+                    SingletoneObj.Stream.Close();
+                if (SingletoneObj.Client != null)
+                    SingletoneObj.Client.Close();
+                SingletoneObj.Windows.Add("MainForm", this);
+                SingletoneObj.User = null;
+                AuthorizationForm form = new AuthorizationForm();
+                form.Show();
+            }
+        }
+
+        private async void AddAddmitionBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                AddAdmissionForm form = await AddAdmissionForm.CreateAsyncAddAdmissionForm();
+                form.ShowDialog();
+            }
+            catch (Exception) { }
+        }
+
+        private async void ViewPatientsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ViewPatientsForm form = await ViewPatientsForm.CreateAsyncViewPatientsForm();
+                form.ShowDialog();
+            }
+            catch (Exception) { }
+        }
     }
 }

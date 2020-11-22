@@ -40,6 +40,9 @@ namespace Services
 
                     Console.WriteLine(request);
 
+                    if (request.Equals("LogOut"))
+                        break;
+
                     string response = tcpService.DecodeAndProcessRequest(request);
 
                     data = Encoding.UTF8.GetBytes(response);

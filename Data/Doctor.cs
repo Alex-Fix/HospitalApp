@@ -24,6 +24,13 @@ namespace Data
             get { return _admissions ?? (_admissions = new List<Admission>()); }
             set { _admissions = value; }
         }
+
+        [NotMapped]
+        public string FullName
+        {
+            get { return $"{LastName} {FirstName} {MiddleName}"; }
+        }
+
     }
 }
 
