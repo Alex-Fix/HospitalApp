@@ -165,5 +165,15 @@ namespace ClientView
             }
             catch (Exception) { }
         }
+
+        private async void ViewWardBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ViewWardsForm form = await ViewWardsForm.CreateAsyncViewWardsForm();
+                form.ShowDialog();
+            }
+            catch (Exception) { }
+        }
     }
 }

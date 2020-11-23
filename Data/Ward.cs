@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -24,6 +25,12 @@ namespace Data
         {
             get { return _admissions ?? (_admissions = new List<Admission>()); }
             set { _admissions = value; }
+        }
+
+        [NotMapped]
+        public string ShortInfo
+        {
+            get { return $"Номер палати: {WardNumber}\tКількість місць: {NumberOfPaces}\tРівень комфорту: {Comfort.ToString()}"; }
         }
 
     }

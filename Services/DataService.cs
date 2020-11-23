@@ -298,5 +298,20 @@ namespace Services
             _dbContext.Database.ExecuteSqlCommand(query, new SqlParameter("@DischargeDate", dischargeDate), new SqlParameter("@Id", id));
             _dbContext.Admissions.Load();
         }
+
+        public List<Ward> GetAllWardsAndInfoAboutIt()
+        {
+            return _dbContext.Wards.Include(el => el.Admissions).ToList();
+        }
+
+        public void DeleteWard(int id)
+        {
+            var ward = _dbContext.Wards.FirstOrDefault(el => el.Id == id);
+            if (ward == null)
+                throw new ArgumentException("The ward does not exist");
+            var query = "DELETE FROM Wards WHERE Id = @Id";
+            _dbContext.Database.ExecuteSqlCommand(query,
+                new SqlParameter("@Id", id));
+        }
     }
 }

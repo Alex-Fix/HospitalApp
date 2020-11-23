@@ -96,6 +96,12 @@ namespace Services
                 case TcpMethods.CloseAdmission:
                     response = CloseAdmission(socketNode);
                     break;
+                case TcpMethods.InitWardsInViewWardsForm:
+                    response = InitWardsInViewWardsForm();
+                    break;
+                case TcpMethods.DeleteWard:
+                    response = DeleteWard(socketNode);
+                    break;
                 default:
                     break;
             }
@@ -741,7 +747,7 @@ namespace Services
             }
         }
 
-        public string SerializeCloseAdmission(Admission admission,User user)
+        public string SerializeCloseAdmission(Admission admission, User user)
         {
             return JsonSerializer.Serialize<SocketNode>(new SocketNode
             {
@@ -757,6 +763,60 @@ namespace Services
             {
                 Admission admission = JsonSerializer.Deserialize<Admission>(socketNode.Args);
                 dataService.CloseAdmission(admission.Id, admission.DischargeDate.Value);
+                return "200";
+            }
+            catch (Exception ex)
+            {
+                return "500;" + ex.Message;
+            }
+        }
+
+        public string SerializeInitWardsInViewWardsForm(User user)
+        {
+            return JsonSerializer.Serialize<SocketNode>(new SocketNode
+            {
+                Method = "InitWardsInViewWardsForm",
+                User = JsonSerializer.Serialize<User>(user)
+            });
+        }
+
+        public List<Ward> DeseializeInitWardsInViewWardsForm(string response)
+        {
+            return JsonSerializer.Deserialize<List<Ward>>(response);
+        }
+
+        public string InitWardsInViewWardsForm()
+        {
+            try
+            {
+                var wards = dataService.GetAllWardsAndInfoAboutIt();
+                foreach (var ward in wards)
+                {
+                    ward.Admissions = null;
+                }
+                return JsonSerializer.Serialize<List<Ward>>(wards);
+            }
+            catch (Exception ex)
+            {
+                return "500;" + ex.Message;
+            }
+        }
+
+        public string SerializeDeleteWard(int id, User user)
+        {
+            return JsonSerializer.Serialize<SocketNode>(new SocketNode { 
+                Method = "DeleteWard",
+                User = JsonSerializer.Serialize<User>(user),
+                Args = id.ToString()
+            });
+        }
+
+        private string DeleteWard(SocketNode socketNode)
+        {
+            try
+            {
+                int id = JsonSerializer.Deserialize<int>(socketNode.Args);
+                dataService.DeleteWard(id);
                 return "200";
             }
             catch (Exception ex)
@@ -792,6 +852,8 @@ namespace Services
         InitAdmissionsInViewAdmissionsForm,
         DeleteAdmission,
         MoveMedicinesToAdmission,
-        CloseAdmission
+        CloseAdmission,
+        InitWardsInViewWardsForm,
+        DeleteWard
     }
 }
